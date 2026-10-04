@@ -1,0 +1,17 @@
+name: Compose Stacks Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Node-Postgres-Redis Stack
+        run: cd stacks/node-postgres-redis && docker compose config
+      - name: Validate Monitoring Stack
+        run: cd stacks/monitoring-stack && docker compose config
